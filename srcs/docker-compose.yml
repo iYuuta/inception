@@ -1,0 +1,59 @@
+version: '3'
+
+networks:
+  inception:
+    name: inception
+
+volumes:
+  wp-files:
+    name: wp-files
+    driver: local
+    driver_opts:
+      device: ./wp-files
+      o: bind
+      type: none
+  db-files:
+    name: db-files
+    driver: local
+    driver_opts:
+      device: ./db-files
+      o: bind
+      type: none
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/.
+    ports:
+      - '80:80'
+    volumes:
+      - 'wp-files:/var/www/html'
+    restart: on-failure
+    depends_on:
+      - wordpress
+      - mariadb
+    networks:
+      - inception
+    env_file: .env
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/.
+    volumes:
+      - 'wp-files:/var/www/html/'
+    restart: on-failure
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    env_file: .env
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/.
+    restart: on-failure
+    networks:
+      - inception
+    volumes:
+      - 'db-files:/var/sql_data/'
+    env_file: .env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
