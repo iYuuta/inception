@@ -1,11 +1,15 @@
-FROM debian:latest
+FROM debian:bookworm
 
-RUN  apt update -y && apt upgrade -y && apt install -y nginx
+RUN apt update -y && apt upgrade -y && apt install -y nginx openssl
 
-COPY tools /var/www/html
+RUN mkdir -p /etc/nginx/ssl/
 
-COPY f /etc/nginx/sites-available/default
+RUN mkdir -p /var/log/nginx
 
-EXPOSE 80
+RUN mkdir -p /var/www/html
 
-CMD ["nginx", "-g", "daemon off;"]
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.crt -subj "/C=MA/ST=NONE/L=NONE/O=NONE/OU=Unit/CN=$ip_addr"
+
+COPY tools/default.conf /etc/nginx/sites-enabled/default
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

@@ -3,6 +3,7 @@ version: '3'
 networks:
   inception:
     name: inception
+    driver: bridge
 
 volumes:
   wp-files:
@@ -23,11 +24,12 @@ volumes:
 services:
   nginx:
     container_name: nginx
+    image: nginx:yuuta
     build: ./requirements/nginx/.
     ports:
-      - '80:80'
+      - '443:443'
     volumes:
-      - 'wp-files:/var/www/html'
+      - wp-files:/var/www/html
     restart: on-failure
     depends_on:
       - wordpress
@@ -37,9 +39,10 @@ services:
     env_file: .env
   wordpress:
     container_name: wordpress
+    image: wordpress:yuuta
     build: ./requirements/wordpress/.
     volumes:
-      - 'wp-files:/var/www/html/'
+      - wp-files:/var/www/html/
     restart: on-failure
     depends_on:
       - mariadb
@@ -48,12 +51,54 @@ services:
     env_file: .env
   mariadb:
     container_name: mariadb
+    image: mariadb:yuuta
     build: ./requirements/mariadb/.
     restart: on-failure
     networks:
       - inception
     volumes:
-      - 'db-files:/var/sql_data/'
+      - db-files:/var/sql_data/
     env_file: .env
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "--silent"]
+  adminer:
+    container_name: adminer
+    image: adminer:yuuta
+    build: ./requirements/bonus/adminer/.
+    env_file:
+      - .env
+    ports:
+      - '1001:1001'
+    restart: on-failure
+    networks:
+      - inception
+    depends_on:
+      - mariadb
+  redis:
+    container_name: redis
+    image: redis:yuuta
+    build: ./requirements/bonus/redis/.
+    restart: on-failure
+    networks:
+      - inception
+    env_file:
+      - .env
+  ftp:
+    container_name: ftp
+    image: ftp:yuuta
+    build: ./requirements/bonus/ftp/.
+    restart: on-failure
+    ports:
+      - '1002:21'
+      - '30000-30009:30000-30009'
+    networks:
+      - inception
+    volumes:
+      - wp-files:/var/www/html/
+    env_file:
+      - .env
+  website:
+    container_name: website
+    image: website:yuuta
+    build: ./requirements/bonus/website/.
+    restart: on-failure
+    ports:
+      - '8080:80'

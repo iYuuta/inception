@@ -5,15 +5,53 @@ mkdir -p /var/www/html
 
 cd /var/www/html
 
-rm -rf *
-
 #install wp-cli and make it executable from any working directory
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar 
 chmod +x wp-cli.phar
 
 ./wp-cli.phar core download --allow-root
-./wp-cli.phar config create --dbname=$db_name --dbuser=$db_user --dbpass=$db_user_pass --dbhost=mariadb:3306 --allow-root
+./wp-cli.phar config create --dbname=$db_name --dbuser=$db_user --dbpass=$db_user_pass --dbhost=mariadb --allow-root
 ./wp-cli.phar user create $wp_user $wp_user_email --user_pass=$wp_user_pass --allow-root
 ./wp-cli.phar core install --url=$ip_addr --title=INCEPTION --admin_user=$wp_admin --admin_password=$wp_admin_pass --admin_email=$wp_admin_email --allow-root
 
-php-fpm8.4 -F
+# INSTALL AND CONFIGURE REDIS CACHE
+./wp-cli.phar plugin install redis-cache --activate --allow-root
+./wp-cli.phar config set WP_REDIS_HOST "redis" --allow-root
+./wp-cli.phar config set WP_REDIS_PORT "6379" --allow-root
+./wp-cli.phar plugin activate redis-cache --allow-root
+./wp-cli.phar redis enable --allow-root
+
+# #install a them
+# ./wp-cli.phar theme install https://public-api.wordpress.com/rest/v1/themes/download/lowfi.zip --allow-root
+# ./wp-cli.phar theme activate lowfi-wpcom --allow-root
+
+# # create a custom page with custom content
+# HOME_PAGE_ID=$(./wp-cli.phar post create \
+#     --post_type=page \
+#     --post_title="Welcome to My Awesome Site" \
+#     --post_status=publish \
+#     --post_content="<h2>This site is powered by Docker, WordPress, and Redis!</h2><p>This entire page was created automatically by a script. How cool is that?</p>" \
+#     --porcelain \
+#     --allow-root)
+
+# # set the new "Home" page as the static front page
+# ./wp-cli.phar option update show_on_front page --allow-root
+# ./wp-cli.phar option update page_on_front $HOME_PAGE_ID --allow-root
+
+# # Path to the footer pattern file
+# FOOTER_FILE="/var/www/html/wp-content/themes/lowfi-wpcom/patterns/footer.php"
+
+# # 1️⃣ Remove Twitter and Tumblr social links
+# sed -i '/wp:social-link {"url":"https:\/\/twitter.com\//d' "$FOOTER_FILE"
+# sed -i '/wp:social-link {"url":"https:\/\/tumblr.com\//d' "$FOOTER_FILE"
+# sed -i 's/WordPress<\/a>/yuuta<\/a>/g' "$FOOTER_FILE"
+
+# # 2️⃣ Replace Instagram link with your own
+# sed -i 's|https://instagram.com/"|https://instagram.com/fw.yuuta"|g' "$FOOTER_FILE"
+# sed -i 's|https://wordpress.org|https://profile.intra.42.fr/users/yoayedde|g' "$FOOTER_FILE"
+# sed -i 's/Designed with/Made by /g' "$FOOTER_FILE"
+
+# # Delete the default "Sample Page" and "Hello World" post that WordPress creates
+# ./wp-cli.phar post delete 1 2 --force --allow-root
+
+exec php-fpm8.2 -F
