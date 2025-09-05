@@ -1,4 +1,4 @@
-DOCKER_COMPOSE = docker-compose -f ./srcs/docker-compose.yml
+DOCKER_COMPOSE = docker compose -f ./srcs/docker-compose.yml
 
 all:
 	@echo "🚀 Starting Docker Compose..."
