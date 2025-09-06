@@ -8,9 +8,25 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 
 ./wp-cli.phar core download --allow-root
-./wp-cli.phar config create --dbname=$db_name --dbuser=$db_user --dbpass=$db_user_pass --dbhost=mariadb --allow-root
-./wp-cli.phar user create $wp_user $wp_user_email --user_pass=$wp_user_pass --allow-root
-./wp-cli.phar core install --url=$ip_addr --title=INCEPTION --admin_user=$wp_admin --admin_password=$wp_admin_pass --admin_email=$wp_admin_email --allow-root
+./wp-cli.phar config create \
+  --dbname=$db_name \
+  --dbuser=$db_user \
+  --dbpass=$db_user_pass \
+  --dbhost=mariadb \
+  --allow-root
+./wp-cli.phar core install \
+  --url=$ip_addr \
+  --title="INCEPTION" \
+  --admin_user=$wp_admin \
+  --admin_password=$wp_admin_pass \
+  --admin_email=$wp_admin_email \
+  --allow-root
+./wp-cli.phar user create \
+  $wp_user \
+  $wp_user_email \
+  --user_pass=$wp_user_pass \
+  --role=author \
+  --allow-root
 
 ./wp-cli.phar plugin install redis-cache --activate --allow-root
 ./wp-cli.phar config set WP_REDIS_HOST "redis" --allow-root
@@ -38,14 +54,14 @@ if [ ! -f .first_timer ]; then
 
 	sed -i '/wp:social-link {"url":"https:\/\/twitter.com\//d' "$FOOTER_FILE"
 	sed -i '/wp:social-link {"url":"https:\/\/tumblr.com\//d' "$FOOTER_FILE"
-	sed -i 's/WordPress<\/a>/yuuta<\/a>/d' "$FOOTER_FILE"
+	sed -i 's/WordPress<\/a>/yuuta<\/a>/g' "$FOOTER_FILE"
 
 	sed -i 's|https://instagram.com/"|https://instagram.com/fw.yuuta"|g' "$FOOTER_FILE"
 	sed -i 's|https://wordpress.org|https://profile.intra.42.fr/users/yoayedde|g' "$FOOTER_FILE"
 	sed -i 's/Designed with/Made by /g' "$FOOTER_FILE"
 
-
 	touch .first_timer
+	chmod 775 .first_timer 
 
 fi
 

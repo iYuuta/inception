@@ -3,20 +3,21 @@ version: '3'
 networks:
   inception:
     name: inception
+    driver: bridge
 
 volumes:
   wordpress:
     name: wordpress
     driver: local
     driver_opts:
-      device: /home/yoayedde/data/wordpress
+      device: ./wp-files
       o: bind
       type: none
   database:
     name: database
     driver: local
     driver_opts:
-      device: /home/yoayedde/data/database
+      device: ./db-files
       o: bind
       type: none
 
@@ -44,6 +45,7 @@ services:
       - inception
     depends_on:
       - mariadb
+      - redis
     env_file: .env
     restart: on-failure
   mariadb:
