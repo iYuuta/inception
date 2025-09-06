@@ -6,4 +6,4 @@ COPY tools/webserv /
 
 COPY tools/website /website
 
-CMD ["/webserv"]
+ENTRYPOINT ["/webserv"]

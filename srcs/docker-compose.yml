@@ -10,14 +10,14 @@ volumes:
     name: wordpress
     driver: local
     driver_opts:
-      device: ./wp-files
+      device: /home/yoayedde/data/wordpress
       o: bind
       type: none
   database:
     name: database
     driver: local
     driver_opts:
-      device: ./db-files
+      device: /home/yoayedde/data/database
       o: bind
       type: none
 
