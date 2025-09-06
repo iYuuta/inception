@@ -1,0 +1,241 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress.com - Themes - Lowfi\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-03-16T03:19:42+00:00\n"
+"PO-Revision-Date: 2024-03-15 12:59:42+0000\n"
+"Language: sv_SE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra Large"
+msgstr "Extra stor"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Double Extra Large"
+msgstr "Dubbelt extra stor"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Triple Extra Large"
+msgstr "Trippel extra stor"
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header"
+msgstr "Sidhuvud"
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer"
+msgstr "Sidfot"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Medium"
+msgstr "Medium"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Large"
+msgstr "Stor"
+
+#: patterns/hidden-404.php
+msgctxt "Pattern title"
+msgid "404"
+msgstr "404"
+
+#: patterns/hidden-archive.php
+msgctxt "Pattern title"
+msgid "Archive"
+msgstr "Arkiv"
+
+#: patterns/hidden-index.php
+msgctxt "Pattern title"
+msgid "Index"
+msgstr "Index"
+
+#: patterns/hidden-page.php
+msgctxt "Pattern title"
+msgid "Page"
+msgstr "Sida"
+
+#: patterns/hidden-post-list.php
+msgctxt "Pattern title"
+msgid "Post List"
+msgstr "Inläggslista"
+
+#: patterns/hidden-search-field.php
+msgctxt "Pattern title"
+msgid "Search field"
+msgstr "Sökfält"
+
+#: patterns/hidden-search.php
+#: patterns/hidden-single.php
+msgctxt "Pattern title"
+msgid "Search"
+msgstr "Sök"
+
+#: styles/amethyst.json
+#: styles/dusk.json
+#: styles/lush.json
+#: styles/night.json
+#: styles/wheat.json
+#: theme.json
+msgctxt "Color name"
+msgid "Base"
+msgstr "Bas"
+
+#: styles/amethyst.json
+#: styles/dusk.json
+#: styles/lush.json
+#: styles/night.json
+#: styles/wheat.json
+#: theme.json
+msgctxt "Color name"
+msgid "Contrast"
+msgstr "Kontrast"
+
+#: styles/amethyst.json
+#: styles/dusk.json
+#: styles/lush.json
+#: styles/night.json
+#: styles/wheat.json
+msgctxt "Color name"
+msgid "Accent / Two"
+msgstr "Accent/två"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Accent / One"
+msgstr "Accent/ett"
+
+#: theme.json
+msgctxt "Space size name"
+msgid "1"
+msgstr "1"
+
+#: theme.json
+msgctxt "Space size name"
+msgid "2"
+msgstr "2"
+
+#: theme.json
+msgctxt "Space size name"
+msgid "3"
+msgstr "3"
+
+#: theme.json
+msgctxt "Space size name"
+msgid "4"
+msgstr "4"
+
+#: theme.json
+msgctxt "Space size name"
+msgid "5"
+msgstr "5"
+
+#: theme.json
+msgctxt "Space size name"
+msgid "6"
+msgstr "6"
+
+#: theme.json
+msgctxt "Space size name"
+msgid "7"
+msgstr "7"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra Small"
+msgstr "Extra liten"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr "Liten"
+
+#: styles/night.json
+msgctxt "Style variation name"
+msgid "Night"
+msgstr "Natt"
+
+#: styles/dusk.json
+msgctxt "Style variation name"
+msgid "Dusk"
+msgstr "Skymning"
+
+#: styles/wheat.json
+msgctxt "Style variation name"
+msgid "Wheat"
+msgstr "Vete"
+
+#: styles/lush.json
+msgctxt "Style variation name"
+msgid "Lush"
+msgstr "Lummig"
+
+#: styles/amethyst.json
+msgctxt "Style variation name"
+msgid "Amethyst"
+msgstr "Ametist"
+
+#: patterns/footer.php
+msgctxt "Pattern title"
+msgid "Footer"
+msgstr "Sidfot"
+
+#: patterns/header-night.php
+msgctxt "Pattern title"
+msgid "Header Night"
+msgstr "Sidhuvud natt"
+
+#: patterns/header-dusk.php
+msgctxt "Pattern title"
+msgid "Header Dusk"
+msgstr "Sidhuvud skymning"
+
+#: patterns/header-lush.php
+msgctxt "Pattern title"
+msgid "Header Lush"
+msgstr "Sidhuvud lummig"
+
+#: patterns/hidden-404.php:22
+msgid "The page you are looking for does not exist, or it has been moved. Please try searching using the form below."
+msgstr "Sidan du letar efter finns inte, eller så har den flyttats. Försök att söka med formuläret nedan."
+
+#: patterns/hidden-post-list.php:32
+msgctxt "Message explaining that there are no results returned from a search"
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Inget matchade dina söktermer. Försök igen med några andra nyckelord."
+
+#: patterns/hidden-search-field.php:11
+msgctxt "This is a placeholder text in a search field"
+msgid "Search..."
+msgstr "Sök …"
+
+#: patterns/footer.php:30
+msgid "https://wordpress.org"
+msgstr "https://sv.wordpress.org"
+
+#. Translators: WordPress link.
+#: patterns/footer.php:33
+msgid "Designed with %1$s"
+msgstr "Designad med %1$s"
+
+#: patterns/hidden-404.php:18
+msgid "Page Not Found"
+msgstr "Sidan hittades inte"
