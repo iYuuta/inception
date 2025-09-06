@@ -21,30 +21,32 @@ chmod +x wp-cli.phar
 ./wp-cli.phar theme install https://public-api.wordpress.com/rest/v1/themes/download/lowfi.zip --allow-root
 ./wp-cli.phar theme activate lowfi-wpcom --allow-root
 
-# create a custom page with custom content
-HOME_PAGE_ID=$(./wp-cli.phar post create \
-    --post_type=page \
-    --post_title="Welcome to My Awesome Site" \
-    --post_status=publish \
-    --post_content="<h2>This site is powered by Docker, WordPress, and Redis!</h2><p>This entire page was created automatically by a script. How cool is that?</p>" \
-    --porcelain \
-    --allow-root)
+if [ ! -f .first_timer ]; then
 
-# set the new "Home" page as the static front page
-./wp-cli.phar option update show_on_front page --allow-root
-./wp-cli.phar option update page_on_front $HOME_PAGE_ID --allow-root
+	HOME_PAGE_ID=$(./wp-cli.phar post create \
+	    --post_type=page \
+	    --post_title="Welcome to My Awesome Site" \
+	    --post_status=publish \
+	    --post_content="<h2>This site is powered by Docker, WordPress, and Redis!</h2><p>This entire page was created automatically by a script. How cool is that?</p>" \
+	    --porcelain \
+	    --allow-root)
 
-# Path to the footer pattern file
-FOOTER_FILE="/var/www/html/wp-content/themes/lowfi-wpcom/patterns/footer.php"
+	./wp-cli.phar option update show_on_front page --allow-root
+	./wp-cli.phar option update page_on_front $HOME_PAGE_ID --allow-root
 
-# 1️⃣ Remove Twitter and Tumblr social links
-sed -i '/wp:social-link {"url":"https:\/\/twitter.com\//d' "$FOOTER_FILE"
-sed -i '/wp:social-link {"url":"https:\/\/tumblr.com\//d' "$FOOTER_FILE"
-sed -i 's/WordPress<\/a>/yuuta<\/a>/d' "$FOOTER_FILE"
+	FOOTER_FILE="/var/www/html/wp-content/themes/lowfi-wpcom/patterns/footer.php"
 
-# 2️⃣ Replace Instagram link with your own
-sed -i 's|https://instagram.com/"|https://instagram.com/fw.yuuta"|g' "$FOOTER_FILE"
-sed -i 's|https://wordpress.org|https://profile.intra.42.fr/users/yoayedde|g' "$FOOTER_FILE"
-sed -i 's/Designed with/Made by /g' "$FOOTER_FILE"
+	sed -i '/wp:social-link {"url":"https:\/\/twitter.com\//d' "$FOOTER_FILE"
+	sed -i '/wp:social-link {"url":"https:\/\/tumblr.com\//d' "$FOOTER_FILE"
+	sed -i 's/WordPress<\/a>/yuuta<\/a>/d' "$FOOTER_FILE"
+
+	sed -i 's|https://instagram.com/"|https://instagram.com/fw.yuuta"|g' "$FOOTER_FILE"
+	sed -i 's|https://wordpress.org|https://profile.intra.42.fr/users/yoayedde|g' "$FOOTER_FILE"
+	sed -i 's/Designed with/Made by /g' "$FOOTER_FILE"
+
+
+	touch .first_timer
+
+fi
 
 exec php-fpm8.2 -F

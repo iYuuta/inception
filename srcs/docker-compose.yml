@@ -23,7 +23,6 @@ volumes:
 services:
   nginx:
     container_name: nginx
-    image: nginx:yuuta
     build: ./requirements/nginx/.
     volumes:
       - wordpress:/var/www/html
@@ -38,7 +37,6 @@ services:
     restart: on-failure
   wordpress:
     container_name: wordpress
-    image: wordpress:yuuta
     build: ./requirements/wordpress/.
     volumes:
       - wordpress:/var/www/html/
@@ -50,7 +48,6 @@ services:
     restart: on-failure
   mariadb:
     container_name: mariadb
-    image: mariadb:yuuta
     build: ./requirements/mariadb/.
     volumes:
       - database:/var/sql_data/
@@ -60,7 +57,6 @@ services:
     restart: on-failure
   adminer:
     container_name: adminer
-    image: adminer:yuuta
     build: ./requirements/bonus/adminer/.
     ports:
       - '1001:1001'
@@ -72,7 +68,6 @@ services:
     restart: on-failure
   redis:
     container_name: redis
-    image: redis:yuuta
     build: ./requirements/bonus/redis/.
     networks:
       - inception
@@ -80,7 +75,6 @@ services:
     restart: on-failure
   ftp:
     container_name: ftp
-    image: ftp:yuuta
     build: ./requirements/bonus/ftp/.
     volumes:
       - wordpress:/var/www/html/
@@ -93,14 +87,12 @@ services:
     restart: on-failure
   website:
     container_name: website
-    image: website:yuuta
     build: ./requirements/bonus/website/.
     ports:
       - '8080:80'
     restart: on-failure
   cadvisor:
     container_name: cadvisor
-    image: cadvisor:yuuta
     build: ./requirements/bonus/cadvisor/.
     volumes:
       - /:/rootfs:ro
