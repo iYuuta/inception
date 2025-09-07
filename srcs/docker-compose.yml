@@ -52,7 +52,7 @@ services:
     container_name: mariadb
     build: ./requirements/mariadb/.
     volumes:
-      - database:/var/sql_data/
+      - database:/var/lib/mysql
     networks:
       - inception
     env_file: .env
